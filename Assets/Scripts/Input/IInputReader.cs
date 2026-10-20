@@ -7,8 +7,11 @@ namespace TowerDefence.PlayerInput
         public float Horizontal { get; }
         public float Vertical { get; }
         public Vector2 MousePosition { get; }
-        public bool LMB { get; }
-        public bool R { get; } // R button
-        public bool TAB { get; }
+        public bool Attack { get; }
+        public bool Reload { get; }
+        public bool Interact { get; }
+        public bool OpenInventory { get; }
+        public bool SelectPrimaryWeapon { get; }
+        public bool SelectSecondaryWeapon { get; }
     }
 }

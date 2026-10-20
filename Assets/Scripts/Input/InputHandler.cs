@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace TowerDefence.PlayerInput
@@ -8,9 +7,12 @@ namespace TowerDefence.PlayerInput
         public float Horizontal { get; private set; }
         public float Vertical { get; private set; }
         public Vector2 MousePosition { get; private set; }
-        public bool LMB { get; private set; }
-        public bool R { get; private set; } // R button
-        public bool TAB { get; private set; }
+        public bool Attack { get; private set; }
+        public bool Reload { get; private set; }
+        public bool Interact { get; private set; }
+        public bool OpenInventory { get; private set; }
+        public bool SelectPrimaryWeapon { get; private set; }
+        public bool SelectSecondaryWeapon { get; private set; }
 
         private void Update()
         {
@@ -28,14 +30,19 @@ namespace TowerDefence.PlayerInput
 
         private void KeyboardHandler()
         {
-            // R = Input.GetButtonDown();
+            Reload = Input.GetButtonDown("Reload");
 
-            // TAB = Input.GetButtonDown();
+            OpenInventory = Input.GetButtonDown("Inventory");
+
+            Interact = Input.GetButtonDown("Interact");
+
+            SelectPrimaryWeapon = Input.GetButtonDown("Primary Weapon");
+            SelectSecondaryWeapon = Input.GetButtonDown("Secondary Weapon");
         }
 
         private void MouseButtons()
         {
-            LMB = Input.GetMouseButton(0);
+            Attack = Input.GetMouseButtonDown(0);
         }
 
         private void MouseInput()
