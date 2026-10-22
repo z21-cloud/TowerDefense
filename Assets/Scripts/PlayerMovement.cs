@@ -11,12 +11,21 @@ namespace TowerDefence.Core
         [SerializeField] private InputManager _inputManager;
 
         private Rigidbody2D _rb;
+        private bool _initializationError = false;
 
         public void Initalize(InputManager inputManager)
         {
+            if(inputManager == null)
+            {
+                Debug.LogError("[PlayerMovement] Input Manager is null");
+                _initializationError = true;
+                return;
+            }
+
             if (!this.TryGetComponent(out Rigidbody2D rb))
             {
                 Debug.LogError("[PlayerMovement] Player has no Rigidbody2D");
+                _initializationError = true;
                 return;
             }
 
@@ -26,6 +35,12 @@ namespace TowerDefence.Core
 
         private void FixedUpdate()
         {
+            if(_initializationError) 
+            {
+                Debug.LogError("[PlayerMovement] Initialization error! Check logs");
+                return;
+            }
+            
             _rb.linearVelocity = _inputManager.GetMovement() * _speed;
         }
     }
