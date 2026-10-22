@@ -41,7 +41,9 @@ namespace TowerDefence.Core
                 return;
             }
             
-            _rb.linearVelocity = _inputManager.GetMovement() * _speed;
+            Vector2 normalizedDirection = _inputManager.GetMovement().normalized;
+            _rb.linearVelocity = normalizedDirection * _speed;
+            Debug.Log(_rb.linearVelocity.magnitude);
         }
     }
 }
