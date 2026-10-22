@@ -1,5 +1,6 @@
 using TowerDefence.Core;
 using TowerDefence.PlayerInput;
+using TowerDefence.PlayerView;
 using UnityEngine;
 
 namespace TowerDefence.Bootstrap
@@ -12,7 +13,13 @@ namespace TowerDefence.Bootstrap
 
         [Header("Player")]
         [SerializeField] private PlayerMovement _playerMovement;
-        [SerializeField] private PlayerRotation _playerRotation;
+        // [SerializeField] private PlayerRotation _playerRotation;
+
+        [Header("Weapon")]
+        [SerializeField] private WeaponRotation _weaponRotation;
+
+        [Header("Camera")]
+        [SerializeField] private CameraFollow _cameraFollow;
 
         private void Awake()
         {
@@ -21,7 +28,9 @@ namespace TowerDefence.Bootstrap
 
             //
             _playerMovement.Initalize(_inputManager);
-            _playerRotation.Initalize(_inputManager);
+
+            //
+            _weaponRotation.Initalize(_inputManager);
         }
     }
 }
