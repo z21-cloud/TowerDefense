@@ -7,6 +7,7 @@ namespace TowerDefence.Core
     {
         [SerializeField] private int _maxHits = 4;
         [SerializeField] private int _logsCount = 1;
+        [SerializeField] private LogPool _logPool;
 
         private int _currentHits;
 
@@ -44,7 +45,25 @@ namespace TowerDefence.Core
         private void Fall()
         {
             Debug.Log("$[Tree] Falling...");
+
+            for(int i = 0; i < _logsCount; i++)
+            {
+                Vector3 offset = GenerateRandomOffset();
+                Log log = _logPool.Get();
+                log.gameObject.transform.position = transform.position + offset;
+                log.gameObject.SetActive(true);
+            }
+
             gameObject.SetActive(false);
+        }
+
+        private Vector3 GenerateRandomOffset()
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f);
+            float y = UnityEngine.Random.Range(-1f, 1f);
+            float z = 0f;
+
+            return new Vector3(x, y, z);
         }
     }
 }
