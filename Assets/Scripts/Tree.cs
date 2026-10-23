@@ -11,6 +11,11 @@ namespace TowerDefence.Core
 
         private int _currentHits;
 
+        public void Initialize()
+        {
+            
+        }
+
         private void Awake()
         {
             // Инициализация параметров дерева, параметры будут определяться из 3 ScriptabeObject

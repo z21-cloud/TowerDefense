@@ -13,6 +13,10 @@ namespace TowerDefence.Core
             _parent = parent;
         }
 
-        public T Create() => Object.Instantiate(_prefab, _parent);
+        public T Create()
+        {
+            T obj = Object.Instantiate(_prefab, _parent);
+            return obj;
+        }
     }
 }

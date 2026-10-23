@@ -8,9 +8,8 @@ namespace TowerDefence.Core
     {
         [SerializeField] private float _speed = 5f;
 
-        [SerializeField] private InputManager _inputManager;
-
         private Rigidbody2D _rb;
+        private InputManager _inputManager;
         private bool _initializationError = false;
 
         public void Initalize(InputManager inputManager)

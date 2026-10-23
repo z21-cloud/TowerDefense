@@ -1,49 +1,52 @@
-using TowerDefence.PlayerInput;
-using UnityEngine;
+// using TowerDefence.PlayerInput;
+// using UnityEngine;
 
-namespace TowerDefence.Core
-{
-    public class PlayerRotation : MonoBehaviour
-    {
-        [SerializeField] private float _rotationSpedd = 5f;
-        [SerializeField] private InputManager _inputManager;
+// namespace TowerDefence.Core
+// {
+//     public class PlayerRotation : MonoBehaviour
+//     {
+//         [SerializeField] private float _rotationSpedd = 5f;
 
-        // private Rigidbody2D _rb;
-        private GetRotation _getRotation;
+//         // private Rigidbody2D _rb;
+//         private GetRotation _getRotation;
+//         private InputManager _inputManager;
+//         private bool _initializationError = false;
+//         public void Initalize(InputManager inputManager)
+//         {
+//             if(inputManager == null)
+//             {
+//                 Debug.LogError("[PlayerRotation] Input Manager is null");
+//                 _initializationError = true;
+//                 return;
+//             }
 
-        public void Initalize(InputManager inputManager)
-        {
-            /*if (!this.TryGetComponent(out Rigidbody2D rb))
-            {
-                Debug.LogError("[PlayerMovement] Player has no Rigidbody2D");
-                return;
-            }
+//             _getRotation = new GetRotation();
+//             _inputManager = inputManager;
+//         }
 
-            _rb = rb;*/
-            _getRotation = new GetRotation();
+//         private void Update()
+//         {
+//             if(_initializationError) 
+//             {
+//                 Debug.LogError("[PlayerRotation] Initialization error! Check logs");
+//                 return;
+//             }
 
-            _inputManager = inputManager;
-        }
+//             RotatePlayer();
+//         }
 
-        private void Update()
-        {
-            Debug.Log($"[PlayerRotation] _inputManager.GetMousePositionConverted() - {_inputManager.GetMousePositionConverted()}");
+//         private void RotatePlayer()
+//         {
+//             Vector2 objectPosition = transform.position;
+//             Vector2 cursosPosition = _inputManager.GetMousePositionConverted();
 
-            RotatePlayer();
-        }
+//             Quaternion targetRotation = _getRotation.FromPositionToTarget(objectPosition, cursosPosition);
 
-        private void RotatePlayer()
-        {
-            Vector2 objectPosition = transform.position;
-            Vector2 cursosPosition = _inputManager.GetMousePositionConverted();
-
-            Quaternion targetRotation = _getRotation.FromPositionToTarget(objectPosition, cursosPosition);
-
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                _rotationSpedd * Time.deltaTime
-            );
-        }
-    }
-}
+//             transform.rotation = Quaternion.RotateTowards(
+//                 transform.rotation,
+//                 targetRotation,
+//                 _rotationSpedd * Time.deltaTime
+//             );
+//         }
+//     }
+// }

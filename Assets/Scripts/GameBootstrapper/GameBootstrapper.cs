@@ -12,8 +12,7 @@ namespace TowerDefence.Bootstrap
         [SerializeField] private InputHandler _inputHandler;
 
         [Header("Player")]
-        [SerializeField] private PlayerMovement _playerMovement;
-        // [SerializeField] private PlayerRotation _playerRotation;
+        [SerializeField] private PlayerController _playerController;
 
         [Header("Weapon")]
         [SerializeField] private WeaponRotation _weaponRotation;
@@ -27,10 +26,10 @@ namespace TowerDefence.Bootstrap
             _inputManager.Initialize(_inputHandler);
 
             //
-            _playerMovement.Initalize(_inputManager);
+            _playerController.Initialize(_inputManager);
 
             //
-            _weaponRotation.Initalize(_inputManager);
+            // _weaponRotation.Initalize(_inputManager);
         }
     }
 }

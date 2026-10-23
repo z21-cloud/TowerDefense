@@ -11,6 +11,13 @@ namespace TowerDefence.Core
         private ObjectPooling<Log> _pool;
 
         // Change Awake() -> Initialize() method for game bootstrapper
+
+        // public void Initailize()
+        // {
+        //      IFactory<Log> factory = new Factory<Log>(_prefab, _parent);
+        //      _pool = new ObjectPooling<Log>(factory, _initialiCount);
+        // }
+
         private void Awake()
         {
             IFactory<Log> factory = new Factory<Log>(_prefab, _parent);
@@ -21,7 +28,7 @@ namespace TowerDefence.Core
         {
             Log log = _pool.Get();
 
-            if(log == null)
+            if (log == null)
             {
                 Debug.LogError($"[LogPool] Pool is Empty! Return null...");
                 return null;

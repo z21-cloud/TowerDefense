@@ -6,8 +6,8 @@ namespace TowerDefence.Core
     public class WeaponRotation : MonoBehaviour
     {
         [SerializeField] private float _rotationSpedd = 5f;
-        [SerializeField] private InputManager _inputManager;
 
+        private InputManager _inputManager;
         private GetRotation _getRotation;
 
         public void Initalize(InputManager inputManager)
@@ -19,6 +19,9 @@ namespace TowerDefence.Core
 
         private void Update()
         {
+            // Log error
+            if(_inputManager == null) return;
+
             RotateWeapon();
         }
 
