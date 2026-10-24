@@ -10,7 +10,7 @@ namespace TowerDefence.Core
         private InputManager _inputManager;
         private GetRotation _getRotation;
 
-        public void Initalize(InputManager inputManager)
+        public void Initialize(InputManager inputManager)
         {
             _getRotation = new GetRotation();
 
@@ -20,7 +20,11 @@ namespace TowerDefence.Core
         private void Update()
         {
             // Log error
-            if(_inputManager == null) return;
+            if(_inputManager == null)
+            {
+                Debug.Log($"[WeaponRotation] InputManager is null!");
+                return;
+            }
 
             RotateWeapon();
         }

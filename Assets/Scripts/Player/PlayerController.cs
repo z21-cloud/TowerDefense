@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputManager = inputManager;
 
-        _playerMovement.Initalize(_inputManager);
-        _weaponRotation.Initalize(_inputManager);
+        _playerMovement.Initialize(_inputManager);
+        _weaponRotation.Initialize(_inputManager);
     }
 }
