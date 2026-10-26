@@ -151,5 +151,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae450985ffa5d094faa5f1603b171d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tree
-  _maxHits: 4
-  _logsCount: 1
+  _treeConfig: {fileID: 11400000, guid: 26960c830c4d09d46a18fbc191de969e, type: 2}
+  _logPool: {fileID: 0}

@@ -27,9 +27,6 @@ namespace TowerDefence.Bootstrap
 
             //
             _playerController.Initialize(_inputManager);
-
-            //
-            // _weaponRotation.Initalize(_inputManager);
         }
     }
 }

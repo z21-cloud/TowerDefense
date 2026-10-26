@@ -7,32 +7,16 @@ namespace TowerDefence.Core
     {
         [SerializeField] private float _rotationSpedd = 5f;
 
-        private InputManager _inputManager;
         private GetRotation _getRotation;
 
-        public void Initialize(InputManager inputManager)
+        private void Awake()
         {
             _getRotation = new GetRotation();
-
-            _inputManager = inputManager;
         }
 
-        private void Update()
-        {
-            // Log error
-            if(_inputManager == null)
-            {
-                Debug.Log($"[WeaponRotation] InputManager is null!");
-                return;
-            }
-
-            RotateWeapon();
-        }
-
-        private void RotateWeapon()
+        public void RotateWeapon(Vector2 cursosPosition)
         {
             Vector2 objectPosition = transform.position;
-            Vector2 cursosPosition = _inputManager.GetMousePositionConverted();
 
             Quaternion targetRotation = _getRotation.FromPositionToTarget(objectPosition, cursosPosition);
 

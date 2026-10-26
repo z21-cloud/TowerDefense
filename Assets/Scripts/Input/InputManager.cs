@@ -28,7 +28,7 @@ namespace TowerDefence.PlayerInput
 
         public bool GetInteraction()
         {
-            Debug.Log($"[InputManager] input.Interact = {_input.Interact}");
+            // Debug.Log($"[InputManager] input.Interact = {_input.Interact}");
             return _input.Interact;
         }
 

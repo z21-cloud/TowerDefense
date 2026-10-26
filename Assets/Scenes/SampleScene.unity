@@ -831,9 +831,11 @@ GameObject:
   - component: {fileID: 1178654495}
   - component: {fileID: 1178654497}
   - component: {fileID: 1178654498}
-  - component: {fileID: 1178654499}
-  - component: {fileID: 1178654500}
   - component: {fileID: 1178654501}
+  - component: {fileID: 1178654499}
+  - component: {fileID: 1178654502}
+  - component: {fileID: 1178654500}
+  - component: {fileID: 1178654503}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -914,7 +916,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1134647249}
-  - {fileID: 1615549289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1178654497
@@ -1006,12 +1007,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa3aadaa3f096c439fbafef7d6c8a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Axe
-  _axe: {fileID: 0}
-  _inputManager: {fileID: 608060653}
   _axeUsageTime: 0.2
   _axeHitDelay: 0.5
-  _offset: {x: 1, y: 0, z: 0}
+  _offset: {x: 1, y: 0}
   _size: {x: 1, y: 1}
+  _debug: 0
 --- !u!114 &1178654501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1025,7 +1025,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _weaponRotation: {fileID: 1134647250}
-  _playerMovement: {fileID: 1178654499}
+  _movementComponent: {fileID: 1178654499}
+  _pickableInteractor: {fileID: 1178654503}
+  _axeInteractor: {fileID: 1178654500}
+  _flipComponent: {fileID: 1178654502}
+--- !u!114 &1178654502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178654494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d631eda5ebbd47e6ac74d8448e6cc6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.FlipComponent
+  _spriteRenderers:
+  - {fileID: 1178654495}
+--- !u!114 &1178654503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178654494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83823dacb025c2f4d97fa13ddd1c54ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  _offset: {x: 1, y: 0}
+  _size: {x: 1, y: 1}
+  _debug: 0
 --- !u!1 &1564688539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,98 +1089,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1615549288
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1615549289}
-  - component: {fileID: 1615549290}
-  - component: {fileID: 1615549291}
-  m_Layer: 0
-  m_Name: Interactor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1615549289
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615549288}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1178654496}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1615549290
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615549288}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 3, y: 2}
-  m_EdgeRadius: 0
---- !u!114 &1615549291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615549288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83823dacb025c2f4d97fa13ddd1c54ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
-  _inputManager: {fileID: 608060653}
 --- !u!1 &1848033612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1267,10 @@ PrefabInstance:
       propertyPath: _logPool
       value: 
       objectReference: {fileID: 952855699}
+    - target: {fileID: 3686200928436528618, guid: 2d4d5c5d83a91dd4594d09ff0a8d5a5f, type: 3}
+      propertyPath: _treeConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 26960c830c4d09d46a18fbc191de969e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
