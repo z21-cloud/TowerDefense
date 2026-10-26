@@ -5,10 +5,11 @@ namespace TowerDefence.Core
     // Note: May be in future I'll change this interface and then change IDamageable to IHittable
     public class Tree : MonoBehaviour, IDamageable
     {
-        [SerializeField] private int _maxHits = 4;
-        [SerializeField] private int _logsCount = 1;
+        [SerializeField] private TreeConfig _treeConfig;
         [SerializeField] private LogPool _logPool;
 
+        private int _maxHits;
+        private int _logsCount;
         private int _currentHits;
 
         public void Initialize()
@@ -19,6 +20,9 @@ namespace TowerDefence.Core
         private void Awake()
         {
             // Инициализация параметров дерева, параметры будут определяться из 3 ScriptabeObject
+            _maxHits = _treeConfig.MaxHits;
+            _logsCount = _treeConfig.LogsCount;
+            
             _currentHits = 0;
         }
 
