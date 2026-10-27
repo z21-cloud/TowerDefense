@@ -6,18 +6,19 @@ namespace TowerDefence.Core
     public class Tree : MonoBehaviour, IDamageable
     {
         [SerializeField] private TreeConfig _treeConfig;
-        [SerializeField] private LogPool _logPool;
 
         private int _maxHits;
         private int _logsCount;
         private int _currentHits;
+        
+        private LogPool _logPool;
 
-        public void Initialize()
+        public void Initialize(LogPool logPool)
         {
-            
+            _logPool = logPool;
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             // Инициализация параметров дерева, параметры будут определяться из 3 ScriptabeObject
             _maxHits = _treeConfig.MaxHits;
