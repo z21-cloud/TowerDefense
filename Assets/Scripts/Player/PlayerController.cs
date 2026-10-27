@@ -24,6 +24,7 @@ namespace TowerDefence.Core
             }
 
             _inputManager = inputManager;
+            _pickableInteractor.Initialize();
         }
 
         private void Awake()
@@ -56,7 +57,7 @@ namespace TowerDefence.Core
                 _axeInteractor.TryUse(_facing);
             }
 
-            if(_inputManager.GetInteraction()) _pickableInteractor.PickUp();
+            if(_inputManager.GetInteraction()) _pickableInteractor.PickUp(_facing);
 
             Vector2 mousePositionConverted = _inputManager.GetMousePositionConverted();
             _weaponRotation.RotateWeapon(mousePositionConverted);

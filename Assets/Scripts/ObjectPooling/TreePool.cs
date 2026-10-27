@@ -4,9 +4,9 @@ namespace TowerDefence.Core
 {
     public class TreePool : MonoBehaviour
     {
-        [SerializeField] private Tree _prefab;
-        [SerializeField] private Transform _parent;
+
         [SerializeField] private int _initialiCount = 100;
+        [SerializeField] private TreeFactory _treeFactory;
 
         private ObjectPooling<Tree> _pool;
 
@@ -20,8 +20,7 @@ namespace TowerDefence.Core
 
         private void Awake()
         {
-            IFactory<Tree> factory = new Factory<Tree>(_prefab, _parent);
-            _pool = new ObjectPooling<Tree>(factory, _initialiCount);
+            _pool = new ObjectPooling<Tree>(_treeFactory, _initialiCount);
         }
 
         public Tree Get()

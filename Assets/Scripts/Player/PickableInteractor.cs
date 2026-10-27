@@ -9,8 +9,24 @@ namespace TowerDefence.Core
         [SerializeField] private Vector2 _size;
         [SerializeField] private bool _debug;
 
+        private Inventory _inventory;
         private Vector2 _debugCenter;
         // private readonly HashSet<IPickable> _pickables = new();
+
+        public void Initialize()
+        {
+            _inventory = new Inventory();
+        }
+
+        private void Update()
+        {
+            if(_inventory == null) return;
+
+            if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                _inventory.TryRemoveLog();
+            }
+        }
 
         public void PickUp(float direction = 1f)
         {
@@ -45,6 +61,8 @@ namespace TowerDefence.Core
             }
 
             if (nearest == null) return;
+
+            if(!_inventory.TryAddLog()) return;
 
             Debug.Log($"[PickableInteractor] PickUping... {nearestCol.name}");
             nearest.TryPickUp();
