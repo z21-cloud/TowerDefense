@@ -1,11 +1,11 @@
-using TowerDefence.Core;
 using UnityEngine;
 
 namespace TowerDefence.Core
 {
     public class TreeFactory : MonoBehaviour, IFactory<Tree>
     {
-        [SerializeField] private LogPool _logPool;
+        [SerializeField] private TreePool _treePool;
+        [SerializeField] private TreeChoppedEventChannelSO _channel;
         [SerializeField] private Tree _prefab;
         [SerializeField] private Transform _parent;
 
@@ -16,7 +16,7 @@ namespace TowerDefence.Core
 
         // }
 
-        private void Awake()
+        public void Initialize()
         {
             _factory = new Factory<Tree>(_prefab, _parent);
         }
@@ -24,7 +24,7 @@ namespace TowerDefence.Core
         public Tree Create()
         {
             var obj = _factory.Create();
-            obj.Initialize(_logPool);
+            obj.Initialize(_channel, _treePool);
             return obj;
         }
     }

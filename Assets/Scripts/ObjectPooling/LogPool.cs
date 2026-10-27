@@ -18,7 +18,7 @@ namespace TowerDefence.Core
         //      _pool = new ObjectPooling<Log>(factory, _initialiCount);
         // }
 
-        private void Awake()
+        public void Initialize()
         {
             IFactory<Log> factory = new Factory<Log>(_prefab, _parent);
             _pool = new ObjectPooling<Log>(factory, _initialiCount);

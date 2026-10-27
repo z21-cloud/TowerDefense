@@ -18,7 +18,7 @@ namespace TowerDefence.Core
         //      _pool = new ObjectPooling<Log>(factory, _initialiCount);
         // }
 
-        private void Awake()
+        public void Initialize()
         {
             _pool = new ObjectPooling<Tree>(_treeFactory, _initialiCount);
         }

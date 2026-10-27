@@ -8,22 +8,22 @@ namespace TowerDefence.Core
         [SerializeField] private TreeConfig _treeConfig;
 
         private int _maxHits;
-        private int _logsCount;
         private int _currentHits;
-        
-        private LogPool _logPool;
 
-        public void Initialize(LogPool logPool)
+        private TreeChoppedEventChannelSO _channel;
+        private TreePool _treePool;
+
+        public void Initialize(TreeChoppedEventChannelSO channel, TreePool treePool)
         {
-            _logPool = logPool;
+            _channel = channel;
+            _treePool = treePool;
         }
 
         private void OnEnable()
         {
             // Инициализация параметров дерева, параметры будут определяться из 3 ScriptabeObject
             _maxHits = _treeConfig.MaxHits;
-            _logsCount = _treeConfig.LogsCount;
-            
+
             _currentHits = 0;
         }
 
@@ -56,24 +56,10 @@ namespace TowerDefence.Core
         {
             Debug.Log("$[Tree] Falling...");
 
-            for(int i = 0; i < _logsCount; i++)
-            {
-                Vector3 offset = GenerateRandomOffset();
-                Log log = _logPool.Get();
-                log.gameObject.transform.position = transform.position + offset;
-                log.gameObject.SetActive(true);
-            }
+            TreeChoppedData treeChoppedData = new TreeChoppedData(_treeConfig, transform.position);
+            _channel.RaiseEvent(treeChoppedData);
 
-            gameObject.SetActive(false);
-        }
-
-        private Vector3 GenerateRandomOffset()
-        {
-            float x = UnityEngine.Random.Range(-1f, 1f);
-            float y = UnityEngine.Random.Range(-1f, 1f);
-            float z = 0f;
-
-            return new Vector3(x, y, z);
+            _treePool.Return(this);
         }
     }
 }

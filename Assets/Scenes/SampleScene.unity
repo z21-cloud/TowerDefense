@@ -290,6 +290,11 @@ MonoBehaviour:
   _playerController: {fileID: 1178654501}
   _weaponRotation: {fileID: 1134647250}
   _cameraFollow: {fileID: 519420033}
+  _treeLootSpawner: {fileID: 701888248}
+  _channel: {fileID: 11400000, guid: 9474fa34d52c2354194d525aca7e2ff1, type: 2}
+  _treePool: {fileID: 952855697}
+  _treeFactory: {fileID: 952855700}
+  _logPool: {fileID: 952855699}
 --- !u!1 &507783180
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +711,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 952855698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &701888246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 701888247}
+  - component: {fileID: 701888248}
+  m_Layer: 0
+  m_Name: TreeLootSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &701888247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701888246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &701888248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701888246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1adbe6729f3bc749b10118ae8ad69aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.TreeLootSpawner
+  _logPool: {fileID: 952855699}
 --- !u!1 &799275843
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +895,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6334f20c12bb54896d968eb08955d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.TreeFactory
-  _logPool: {fileID: 952855699}
+  _treePool: {fileID: 952855697}
+  _channel: {fileID: 11400000, guid: 9474fa34d52c2354194d525aca7e2ff1, type: 2}
   _prefab: {fileID: 3686200928436528618, guid: 2d4d5c5d83a91dd4594d09ff0a8d5a5f, type: 3}
   _parent: {fileID: 1062562798}
 --- !u!1 &1062562797
@@ -1466,3 +1517,4 @@ SceneRoots:
   - {fileID: 608060652}
   - {fileID: 249950865}
   - {fileID: 952855698}
+  - {fileID: 701888247}
