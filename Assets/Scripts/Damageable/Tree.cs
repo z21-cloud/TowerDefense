@@ -48,8 +48,8 @@ namespace TowerDefence.Core
 
             Debug.Log($"[Tree] Current hits - {_currentHits}. Hits needed - {_maxHits}");
 
-            // effects
-            // sound
+            // effects via channel
+            // sound via channel
         }
 
         private void Fall()
@@ -58,6 +58,9 @@ namespace TowerDefence.Core
 
             TreeChoppedData treeChoppedData = new TreeChoppedData(_treeConfig, transform.position);
             _channel.RaiseEvent(treeChoppedData);
+
+            // effects via channel
+            // sound via channel
 
             _treePool.Return(this);
         }
