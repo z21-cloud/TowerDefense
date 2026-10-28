@@ -10,6 +10,7 @@ namespace TowerDefence.Core
         [SerializeField] private PickableInteractor _pickableInteractor;
         [SerializeField] private AxeInteractor _axeInteractor;
         [SerializeField] private FlipComponent _flipComponent;
+        [SerializeField] private InventoryView _inventoryView;
 
         private InputManager _inputManager;
         private Vector2 _moveVectorNormalized;
@@ -24,7 +25,7 @@ namespace TowerDefence.Core
             }
 
             _inputManager = inputManager;
-            _pickableInteractor.Initialize();
+            _pickableInteractor.Initialize(_inventoryView);
         }
 
         private void Awake()
@@ -58,6 +59,12 @@ namespace TowerDefence.Core
             }
 
             if(_inputManager.GetInteraction()) _pickableInteractor.PickUp(_facing);
+
+            if(_inputManager.GetOpenInventory()) 
+            {
+                bool value = _inventoryView.gameObject.activeInHierarchy;
+                _inventoryView.gameObject.SetActive(!value);
+            }
 
             Vector2 mousePositionConverted = _inputManager.GetMousePositionConverted();
             _weaponRotation.RotateWeapon(mousePositionConverted);

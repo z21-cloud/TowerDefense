@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 
 public class Inventory
 {
-    private readonly int _cellsCount = 10;
+    private readonly int _cellsCount = 16;
     private readonly InventoryCell _axe;
     private readonly InventoryCell _shotgun;
     private readonly InventoryCell[] _inventory;
     private int _logsCount;
 
     public int LogsCount => _logsCount;
+    public int CellsCount => _inventory.Length;
 
     public Inventory()
     {
@@ -86,5 +88,13 @@ public class Inventory
 
         Debug.Log($"[Inventory] Log removed successfully! Index - {index}, Count - {_inventory[index].Count}");
         Debug.Log($"[Inventory] Current logs count: {LogsCount}");
+    }
+
+    public InventoryCell GetCell(int index)
+    {
+        if(index >= 0 && index < _inventory.Length) return _inventory[index];
+
+        Debug.LogWarning($"[Inventory] Wrong index: {index}!");
+        return null;
     }
 }
