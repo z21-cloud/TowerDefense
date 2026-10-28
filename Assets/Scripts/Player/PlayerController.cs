@@ -58,7 +58,7 @@ namespace TowerDefence.Core
                 _axeInteractor.TryUse(_facing);
             }
 
-            if(_inputManager.GetInteraction()) _pickableInteractor.PickUp(_facing);
+            if(_inputManager.GetInteraction()) _pickableInteractor.Interact(_facing);
 
             if(_inputManager.GetOpenInventory()) 
             {
