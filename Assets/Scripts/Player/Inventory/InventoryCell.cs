@@ -1,4 +1,4 @@
-namespace TowerDefenсe.Core
+namespace TowerDefence.Core
 {
     public class InventoryCell
     {

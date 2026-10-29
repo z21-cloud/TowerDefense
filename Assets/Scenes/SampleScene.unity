@@ -676,6 +676,8 @@ MonoBehaviour:
   _health: {fileID: 1178654504}
   _playerHealthUI: {fileID: 687180937}
   _weaponRotation: {fileID: 1134647250}
+  _bulletPool: {fileID: 952855702}
+  _bulletFactory: {fileID: 952855701}
   _cameraFollow: {fileID: 519420033}
   _treeLootSpawner: {fileID: 701888248}
   _channel: {fileID: 11400000, guid: 9474fa34d52c2354194d525aca7e2ff1, type: 2}
@@ -1063,8 +1065,8 @@ GameObject:
   m_Component:
   - component: {fileID: 507783181}
   - component: {fileID: 507783182}
-  m_Layer: 0
-  m_Name: w
+  m_Layer: 7
+  m_Name: WeaponSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1084,8 @@ Transform:
   m_LocalPosition: {x: 0.354, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.19460224, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1670373881}
   m_Father: {fileID: 1134647249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &507783182
@@ -2032,6 +2035,8 @@ GameObject:
   - component: {fileID: 952855697}
   - component: {fileID: 952855699}
   - component: {fileID: 952855700}
+  - component: {fileID: 952855702}
+  - component: {fileID: 952855701}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -2068,6 +2073,7 @@ Transform:
   m_Children:
   - {fileID: 1062562798}
   - {fileID: 632749520}
+  - {fileID: 2093489377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &952855699
@@ -2101,6 +2107,35 @@ MonoBehaviour:
   _channel: {fileID: 11400000, guid: 9474fa34d52c2354194d525aca7e2ff1, type: 2}
   _prefab: {fileID: 3686200928436528618, guid: 2d4d5c5d83a91dd4594d09ff0a8d5a5f, type: 3}
   _parent: {fileID: 1062562798}
+--- !u!114 &952855701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952855696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08bcd0427b676ea4d9945711b01c1399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.BulletFactory
+  _bulletPool: {fileID: 952855702}
+  _prefab: {fileID: 3088223033123662286, guid: 8e846c687cd85d1408ed78ffe7bdbd59, type: 3}
+  _parent: {fileID: 2093489377}
+--- !u!114 &952855702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952855696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679acb1e5b8b71d4c84671062b482f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPool
+  _initialiCount: 100
+  _bulletFactory: {fileID: 952855701}
 --- !u!1 &988541704
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,7 +2465,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1134647249}
   - component: {fileID: 1134647250}
-  m_Layer: 0
+  - component: {fileID: 1134647251}
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2465,7 +2501,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc482fb5fb92fc499fb1972e7770b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.WeaponRotation
-  _rotationSpedd: 360
+  _rotationSpeed: 360
+--- !u!114 &1134647251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134647248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766d33b02e7f4c54f8f9579674eaaa58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  _bulletSpeed: 20
+  _bulletPool: {fileID: 952855702}
+  _bulletPivot: {fileID: 1670373881}
+  _damage: 10
 --- !u!1 &1178654494
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,7 +2536,7 @@ GameObject:
   - component: {fileID: 1178654500}
   - component: {fileID: 1178654503}
   - component: {fileID: 1178654504}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2672,6 +2724,7 @@ MonoBehaviour:
   _movementComponent: {fileID: 1178654499}
   _axeInteractor: {fileID: 1178654500}
   _flipComponent: {fileID: 1178654502}
+  _weapon: {fileID: 1134647251}
 --- !u!114 &1178654502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3277,6 +3330,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 142842039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1670373880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1670373881}
+  m_Layer: 7
+  m_Name: WeaponPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1670373881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670373880}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.503, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 507783181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1670839802
 GameObject:
@@ -4132,6 +4216,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
+--- !u!1 &2093489376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2093489377}
+  m_Layer: 0
+  m_Name: BulletPoolSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2093489377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093489376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 952855698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5223839794778651143
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
-using TowerDefence.Core;
 using UnityEngine;
 
-namespace TowerDefenсe.Core
+namespace TowerDefence.Core
 {
     public class Inventory
     {

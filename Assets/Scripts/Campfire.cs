@@ -22,8 +22,6 @@ public class Campfire : MonoBehaviour, IInteractable
         // or is full maybe
         if (type != PickableType.Log) return false;
 
-        Interact();
-
         return true;
     }
 

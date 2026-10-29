@@ -36,11 +36,11 @@ namespace TowerDefence.Core
 
             foreach (var col in colliders)
             {
-                if (col.TryGetComponent<IHittable>(out var damageable)
-                    && _hitThisSwing.Add(damageable))
+                if (col.TryGetComponent<IHittable>(out var hittable)
+                    && _hitThisSwing.Add(hittable))
                 {
                     Debug.Log($"[Axe] Hitting {col.name}");
-                    damageable.TryTakeHit();
+                    hittable.TryTakeHit();
                 }
             }
         }

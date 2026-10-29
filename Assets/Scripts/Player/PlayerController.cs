@@ -1,4 +1,3 @@
-using TowerDefenсe.Core;
 using TowerDefence.PlayerInput;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ namespace TowerDefence.Core
         [SerializeField] private MovementComponent _movementComponent;
         [SerializeField] private AxeInteractor _axeInteractor;
         [SerializeField] private FlipComponent _flipComponent;
+        [SerializeField] private Weapon _weapon;
 
         private InputManager _inputManager;
         private InventoryView _inventoryView;
@@ -95,6 +95,8 @@ namespace TowerDefence.Core
                 _flipComponent.SetFacing(_facing);
             }
             _weaponRotation.RotateWeapon(mousePosition);
+
+            if(_inputManager.GetAttack()) _weapon.Shoot();
         }
 
         private void HandleMoveInput()

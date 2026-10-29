@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using TowerDefenсe.Core;
 using UnityEngine;
 
-namespace TowerDefenсe.Core
+namespace TowerDefence.Core
 {
     public class InventoryView : MonoBehaviour
     {

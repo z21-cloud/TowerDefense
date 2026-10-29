@@ -1,4 +1,3 @@
-using TowerDefenсe.Core;
 using TowerDefence.Core;
 using TowerDefence.PlayerInput;
 using TowerDefence.PlayerView;
@@ -20,6 +19,8 @@ namespace TowerDefence.Bootstrap
 
         [Header("Weapon")]
         [SerializeField] private WeaponRotation _weaponRotation;
+        [SerializeField] private BulletPool _bulletPool;
+        [SerializeField] private BulletFactory _bulletFactory;
 
         [Header("Camera")]
         [SerializeField] private CameraFollow _cameraFollow;
@@ -45,6 +46,10 @@ namespace TowerDefence.Bootstrap
             _treeFactory.Initialize();
             _treePool.Initialize();
             _treeLootSpawner.Initialize(_channel);
+
+            //
+            _bulletFactory.Initialize();
+            _bulletPool.Initialize();
 
             //
             _inventory = new Inventory();

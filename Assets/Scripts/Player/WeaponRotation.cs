@@ -1,11 +1,10 @@
-using TowerDefence.PlayerInput;
 using UnityEngine;
 
 namespace TowerDefence.Core
 {
     public class WeaponRotation : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpedd = 5f;
+        [SerializeField] private float _rotationSpeed = 5f;
 
         private GetRotation _getRotation;
 
@@ -23,7 +22,7 @@ namespace TowerDefence.Core
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
-                _rotationSpedd * Time.deltaTime
+                _rotationSpeed * Time.deltaTime
             );
         }
     }
