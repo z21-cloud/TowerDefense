@@ -6,11 +6,7 @@ namespace TowerDefence.Core
 {
     public class AxeInteractor : MonoBehaviour
     {
-        [SerializeField] private float _axeUsageTime = 0.2f;
-        [SerializeField] private float _axeHitDelay = 0.5f;
-        [SerializeField] private Vector2 _offset;
-        [SerializeField] private Vector2 _size;
-        [SerializeField] private bool _debug;
+        [SerializeField] private AxeInteractorConfig _config;
 
         private float _nextHitTime;
         private Vector2 _debugCenter;
@@ -18,9 +14,15 @@ namespace TowerDefence.Core
 
         public void TryUse(float facing)
         {
+            if (_config == null)
+            {
+                Debug.LogError("[AxeInteractor] AxeInteractorConfig is not assigned.", this);
+                return;
+            }
+
             if (Time.time < _nextHitTime) return;
 
-            _nextHitTime = Time.time + _axeHitDelay;
+            _nextHitTime = Time.time + _config.AxeHitDelay;
 
             AxeUsage(facing);
 
@@ -45,9 +47,9 @@ namespace TowerDefence.Core
 
         private Collider2D[] AxeZone(float direction)
         {
-            Vector2 center = (Vector2)transform.position + _offset * direction;
+            Vector2 center = (Vector2)transform.position + _config.Offset * direction;
             _debugCenter = center;
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(center, _size, 0f);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(center, _config.Size, 0f);
             return colliders;
         }
 
@@ -55,14 +57,14 @@ namespace TowerDefence.Core
         {
             // effects, animation, sound
 
-            yield return new WaitForSeconds(_axeUsageTime);
+            yield return new WaitForSeconds(_config.AxeUsageTime);
         }
 
         private void OnDrawGizmos()
         {
-            if (!_debug) return;
+            if (_config == null || !_config.Debug) return;
 
-            Gizmos.DrawCube(_debugCenter, _size);
+            Gizmos.DrawCube(_debugCenter, _config.Size);
         }
     }
 }

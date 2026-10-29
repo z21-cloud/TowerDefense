@@ -301,6 +301,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
   _text: {fileID: 1597782713239266586}
   _image: {fileID: 1726096882972967006}

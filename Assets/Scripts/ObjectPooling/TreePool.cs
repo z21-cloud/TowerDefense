@@ -10,14 +10,6 @@ namespace TowerDefence.Core
 
         private ObjectPooling<Tree> _pool;
 
-        // Change Awake() -> Initialize() method for game bootstrapper
-
-        // public void Initailize()
-        // {
-        //      IFactory<Log> factory = new Factory<Log>(_prefab, _parent);
-        //      _pool = new ObjectPooling<Log>(factory, _initialiCount);
-        // }
-
         public void Initialize()
         {
             _pool = new ObjectPooling<Tree>(_treeFactory, _initialiCount);

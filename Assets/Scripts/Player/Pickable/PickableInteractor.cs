@@ -1,13 +1,12 @@
 using System.Collections.Generic;
+using TowerDefenсe.Core;
 using UnityEngine;
 
 namespace TowerDefence.Core
 {
     public class PickableInteractor : MonoBehaviour
     {
-        [SerializeField] private Vector2 _offset;
-        [SerializeField] private Vector2 _size;
-        [SerializeField] private bool _debug;
+        [SerializeField] private PickableInteractorConfig _config;
 
         private Inventory _inventory;
         private Vector2 _debugCenter;
@@ -19,6 +18,12 @@ namespace TowerDefence.Core
 
         public void Interact(float direction = 1f)
         {
+            if (_config == null)
+            {
+                Debug.LogError("[PickableInteractor] PickableInteractorConfig is not assigned.", this);
+                return;
+            }
+
             Collider2D[] colliders = PickableZone(direction);
 
             Collider2D nearestCol = null;
@@ -60,17 +65,17 @@ namespace TowerDefence.Core
 
         private Collider2D[] PickableZone(float direction)
         {
-            Vector2 center = (Vector2)transform.position + _offset * direction;
+            Vector2 center = (Vector2)transform.position + _config.Offset * direction;
             _debugCenter = center;
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(center, _size, 0f);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(center, _config.Size, 0f);
             return colliders;
         }
 
         private void OnDrawGizmos()
         {
-            if (!_debug) return;
+            if (_config == null || !_config.Debug) return;
 
-            Gizmos.DrawWireCube(_debugCenter, _size);
+            Gizmos.DrawWireCube(_debugCenter, _config.Size);
         }
     }
 }

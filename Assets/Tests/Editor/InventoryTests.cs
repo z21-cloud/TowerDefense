@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using TowerDefence.Core;
+using TowerDefenсe.Core;
 
 public class InventoryTests
 {
