@@ -10,145 +10,52 @@ namespace TowerDefence.Core
         [SerializeField] private bool _debug;
 
         private Inventory _inventory;
-        private InventoryView _inventoryView;
         private Vector2 _debugCenter;
-        // private readonly HashSet<IPickable> _pickables = new();
 
-        public void Initialize(InventoryView inventoryView)
+        public void Initialize(Inventory inventory)
         {
-            _inventory = new Inventory();
-
-            _inventoryView = inventoryView;
-            _inventoryView.Initalize(_inventory);
+            _inventory = inventory;
         }
-
-        // private void Update()
-        // {
-        //     if(_inventory == null) return;
-
-        //     if(Input.GetKeyDown(KeyCode.J))
-        //     {
-        //         _inventory.TryRemoveLog();
-        //     }
-        // }
-
-        // public void PickUp(float direction = 1f)
-        // {
-        //     // _pickables.Clear();
-        //     Collider2D[] colliders = PickableZone(direction);
-
-        //     IPickable nearest = null;
-        //     Collider2D nearestCol = null;
-        //     float nearestSqrDistance = float.MaxValue;
-
-        //     foreach (var col in colliders)
-        //     {
-        //         // if (col.TryGetComponent<IPickable>(out var pickable)
-        //         //     /*&& _pickables.Add(pickable)*/
-        //         //      && Vector2.Distance(transform.position, col.transform.position) < nearestSqrDistance)
-        //         // {
-        //         //     nearest = pickable;
-        //         //     nearestCol = col;
-        //         //     nearestSqrDistance = Vector2.Distance(transform.position, col.transform.position);
-        //         // }
-
-        //         if (!col.TryGetComponent<IPickable>(out var pickable)) continue;
-
-        //         float sqrDistance = ((Vector2)col.transform.position - (Vector2)transform.position).sqrMagnitude;
-
-        //         if (sqrDistance < nearestSqrDistance)
-        //         {
-        //             nearest = pickable;
-        //             nearestCol = col;
-        //             nearestSqrDistance = sqrDistance;
-        //         }
-        //     }
-
-        //     if (nearest == null) return;
-
-        //     if (!_inventory.TryAddLog()) return;
-
-        //     _inventoryView.Refresh();
-        //     Debug.Log($"[PickableInteractor] PickUping... {nearestCol.name}");
-        //     nearest.TryPickUp();
-        // }
 
         public void Interact(float direction = 1f)
         {
-            // _pickables.Clear();
             Collider2D[] colliders = PickableZone(direction);
 
-            IInteractable nearestInteractable = null;
-            IPickable nearestPickable = null;
             Collider2D nearestCol = null;
-            float nearestInteractableSqrDistance = float.MaxValue;
-            float nearestPickableSqrDistance = float.MaxValue;
 
-
-            foreach (var col in colliders)
-            {
-                // if (col.TryGetComponent<IPickable>(out var pickable)
-                //     /*&& _pickables.Add(pickable)*/
-                //      && Vector2.Distance(transform.position, col.transform.position) < nearestSqrDistance)
-                // {
-                //     nearest = pickable;
-                //     nearestCol = col;
-                //     nearestSqrDistance = Vector2.Distance(transform.position, col.transform.position);
-                // }
-
-                if (!col.TryGetComponent<IInteractable>(out var interactable)) continue;
-
-                float sqrDistance = ((Vector2)col.transform.position - (Vector2)transform.position).sqrMagnitude;
-
-                if (sqrDistance < nearestInteractableSqrDistance)
-                {
-                    nearestInteractable = interactable;
-                    nearestCol = col;
-                    nearestInteractableSqrDistance = sqrDistance;
-                }
-            }
+            float nearestSqrDistance = float.MaxValue;
 
             foreach (var col in colliders)
             {
-                if (!col.TryGetComponent<IPickable>(out var pickable)) continue;
+                if (!col.TryGetComponent<IInteractable>(out var _) && !col.TryGetComponent<IPickable>(out var _)) continue;
 
                 float sqrDistance = ((Vector2)col.transform.position - (Vector2)transform.position).sqrMagnitude;
 
-                if (sqrDistance < nearestPickableSqrDistance)
+                if (sqrDistance < nearestSqrDistance)
                 {
-                    nearestPickable = pickable;
                     nearestCol = col;
-                    nearestPickableSqrDistance = sqrDistance;
+                    nearestSqrDistance = sqrDistance;
                 }
             }
 
-            if (nearestPickable == null && nearestInteractable == null) return;
+            if (nearestCol == null) return;
 
-            // at first player tries to pick up object, after interact
-            // 1. nearest pickable != null && nearestPickableSqrDistance <= nearestInteractableSqrDistance
-            // 1.1 Pick up logic
-            if(nearestPickable != null && nearestPickableSqrDistance <= nearestInteractableSqrDistance)
+            if (nearestCol.TryGetComponent<IPickable>(out var pickable))
             {
-                if (!_inventory.TryAddLog()) return;
+                if (!_inventory.TryPickUp(pickable)) return;
 
                 Debug.Log($"[PickableInteractor] PickUping... {nearestCol.name}");
-                
-                nearestPickable.TryPickUp();
             }
 
-            // 2. nearestInteractable != null && nearestInteractableSqrDistance < nearestPickableSqrDistance
-            // 2.1 Interact logic
-            else if(nearestInteractable != null && nearestInteractableSqrDistance < nearestPickableSqrDistance)
+            else if (nearestCol.TryGetComponent<IInteractable>(out var interactable))
             {
-                // Interact logic    
+                if(!interactable.CanAccept(PickableType.Log)) return;
                 if (!_inventory.TryRemoveLog()) return;
 
-                nearestInteractable.Interact();
-
                 Debug.Log($"[PickableInteractor] Interacting... {nearestCol.name}");
-            }
 
-            _inventoryView.Refresh();
+                interactable.Interact();
+            }
         }
 
         private Collider2D[] PickableZone(float direction)

@@ -1,4 +1,5 @@
 using System;
+using TowerDefence.Core;
 using UnityEngine;
 
 public class Inventory
@@ -7,10 +8,13 @@ public class Inventory
     private readonly InventoryCell _axe;
     private readonly InventoryCell _shotgun;
     private readonly InventoryCell[] _inventory;
+    private const int _cellLogsCount = 2;
+    private const int _freeCellsindex = 2;
     private int _logsCount;
 
     public int LogsCount => _logsCount;
     public int CellsCount => _inventory.Length;
+
 
     public Inventory()
     {
@@ -22,39 +26,43 @@ public class Inventory
         _inventory[0] = _axe;
         _inventory[1] = _shotgun;
 
-        for (int i = 2; i < _inventory.Length; i++)
+        for (int i = _freeCellsindex; i < _inventory.Length; i++)
         {
             InventoryCell emptyCell = new InventoryCell(CellType.Empty, 0);
             _inventory[i] = emptyCell;
         }
-
-        // Debug.Log($"[Inventory] Inventory created! Initialized cells: {_inventory.Length}");
-
-        // for (int i = 0; i < _inventory.Length; i++)
-        // {
-        //     Debug.Log($"[Inventory] Cell index : {i}. Cell Type : {_inventory[i].Type}");
-        // }
     }
 
-    public bool TryAddLog()
+    public bool TryPickUp(IPickable pickable)
     {
-        for (int i = 2; i < _inventory.Length; i++)
+        if (pickable.Type == PickableType.Log && TryAddLog())
         {
-            if (_inventory[i].Type == CellType.Empty || 
-                (_inventory[i].Type == CellType.Log && _inventory[i].Count < 2))
-            {
-                AddLog(i);
-                return true;
-            }
+            pickable.PickUp();
+            return true;
         }
 
         Debug.Log($"[Inventory] Inventory is full!");
         return false;
     }
 
+    private bool TryAddLog()
+    {
+        for (int i = _freeCellsindex; i < _inventory.Length; i++)
+        {
+            if (_inventory[i].Type == CellType.Empty ||
+                (_inventory[i].Type == CellType.Log && _inventory[i].Count < _cellLogsCount))
+            {
+                AddLog(i);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool TryRemoveLog()
     {
-        for (int i = _inventory.Length - 1; i > 1; i--)
+        for (int i = _inventory.Length - 1; i > _freeCellsindex - 1; i--)
         {
             if (_inventory[i].Type == CellType.Log && _inventory[i].Count > 0)
             {
@@ -73,7 +81,7 @@ public class Inventory
 
         _inventory[index].Type = CellType.Log;
         _inventory[index].Count++;
-        
+
         Debug.Log($"[Inventory] Log added successfully! Index - {index}, Count - {_inventory[index].Count}");
         Debug.Log($"[Inventory] Current logs count: {LogsCount}");
     }
@@ -81,10 +89,10 @@ public class Inventory
     private void RemoveLog(int index)
     {
         _logsCount--;
-        
+
         _inventory[index].Count--;
 
-        if(_inventory[index].Count <= 0) _inventory[index].Type = CellType.Empty;
+        if (_inventory[index].Count <= 0) _inventory[index].Type = CellType.Empty;
 
         Debug.Log($"[Inventory] Log removed successfully! Index - {index}, Count - {_inventory[index].Count}");
         Debug.Log($"[Inventory] Current logs count: {LogsCount}");
@@ -92,7 +100,7 @@ public class Inventory
 
     public InventoryCell GetCell(int index)
     {
-        if(index >= 0 && index < _inventory.Length) return _inventory[index];
+        if (index >= 0 && index < _inventory.Length) return _inventory[index];
 
         Debug.LogWarning($"[Inventory] Wrong index: {index}!");
         return null;

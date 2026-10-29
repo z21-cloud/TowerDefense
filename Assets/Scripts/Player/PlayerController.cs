@@ -7,16 +7,18 @@ namespace TowerDefence.Core
     {
         [SerializeField] private WeaponRotation _weaponRotation;
         [SerializeField] private MovementComponent _movementComponent;
-        [SerializeField] private PickableInteractor _pickableInteractor;
         [SerializeField] private AxeInteractor _axeInteractor;
         [SerializeField] private FlipComponent _flipComponent;
-        [SerializeField] private InventoryView _inventoryView;
 
         private InputManager _inputManager;
+        private InventoryView _inventoryView;
+        private PickableInteractor _pickableInteractor;
         private Vector2 _moveVectorNormalized;
         private float _facing = 1f;
 
-        public void Initialize(InputManager inputManager)
+        public void Initialize(InputManager inputManager,
+                                PickableInteractor pickableInteractor,
+                                InventoryView inventoryView)
         {
             if (inputManager == null)
             {
@@ -25,49 +27,78 @@ namespace TowerDefence.Core
             }
 
             _inputManager = inputManager;
-            _pickableInteractor.Initialize(_inventoryView);
+            _inventoryView = inventoryView;
+            _pickableInteractor = pickableInteractor;
         }
 
         private void Awake()
         {
-            if (_weaponRotation == null || _movementComponent == null
-                || _pickableInteractor == null || _axeInteractor == null || _flipComponent == null)
+            if (_inputManager == null
+            || _weaponRotation == null
+            || _movementComponent == null
+            || _pickableInteractor == null
+            || _axeInteractor == null
+            || _flipComponent == null
+            || _inventoryView == null)
             {
                 Debug.LogError($"[PlayerController] Component is null!", this);
+                enabled = false;
                 return;
             }
         }
 
         private void Update()
         {
-            if(_inputManager == null || _weaponRotation == null || 
-                _movementComponent == null || _pickableInteractor == null || 
-                _axeInteractor == null || _flipComponent == null) 
-                return; 
+            HandleMoveInput();
 
-            _moveVectorNormalized = _inputManager.GetMovement().normalized;
+            // weapon & player rotation
+            HandleRotationInput();
 
-            if (_moveVectorNormalized.x != 0f)
+            HandleAttackInput();
+            
+            HandleInteractionInput();
+            
+            HandleInventoryInput();
+        }
+
+        private void HandleInventoryInput()
+        {
+            if (_inputManager.GetOpenInventory())
             {
-                _facing = Mathf.Sign(_moveVectorNormalized.x);
-                _flipComponent.SetFacing(_facing);
+                bool value = _inventoryView.gameObject.activeInHierarchy;
+                _inventoryView.OpenInventory(!value);
             }
+        }
 
+        private void HandleInteractionInput()
+        {
+            if (_inputManager.GetInteraction()) _pickableInteractor.Interact(_facing);
+        }
+
+        private void HandleAttackInput()
+        {
             if (_inputManager.GetAttack())
             {
                 _axeInteractor.TryUse(_facing);
             }
+        }
 
-            if(_inputManager.GetInteraction()) _pickableInteractor.Interact(_facing);
+        private void HandleRotationInput()
+        {
+            Vector2 mousePosition = _inputManager.GetMousePositionConverted();
+            float side = mousePosition.x - transform.position.x;
 
-            if(_inputManager.GetOpenInventory()) 
+            if (Mathf.Abs(side) > 0.05f)
             {
-                bool value = _inventoryView.gameObject.activeInHierarchy;
-                _inventoryView.gameObject.SetActive(!value);
+                _facing = Mathf.Sign(side);
+                _flipComponent.SetFacing(_facing);
             }
+            _weaponRotation.RotateWeapon(mousePosition);
+        }
 
-            Vector2 mousePositionConverted = _inputManager.GetMousePositionConverted();
-            _weaponRotation.RotateWeapon(mousePositionConverted);
+        private void HandleMoveInput()
+        {
+            _moveVectorNormalized = _inputManager.GetMovement().normalized;
         }
 
         private void FixedUpdate()

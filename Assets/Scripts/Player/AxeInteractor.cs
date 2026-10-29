@@ -14,7 +14,7 @@ namespace TowerDefence.Core
 
         private float _nextHitTime;
         private Vector2 _debugCenter;
-        private readonly HashSet<IDamageable> _hitThisSwing = new();
+        private readonly HashSet<IHittable> _hitThisSwing = new();
 
         public void TryUse(float facing)
         {
@@ -34,7 +34,7 @@ namespace TowerDefence.Core
 
             foreach (var col in colliders)
             {
-                if (col.TryGetComponent<IDamageable>(out var damageable)
+                if (col.TryGetComponent<IHittable>(out var damageable)
                     && _hitThisSwing.Add(damageable))
                 {
                     Debug.Log($"[Axe] Hitting {col.name}");

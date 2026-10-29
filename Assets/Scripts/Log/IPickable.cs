@@ -2,6 +2,7 @@ namespace TowerDefence.Core
 {
     public interface IPickable
     {
-        public bool TryPickUp();
+        public PickableType Type {get; }
+        public void PickUp();
     }
 }

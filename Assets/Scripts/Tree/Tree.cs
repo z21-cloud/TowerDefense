@@ -3,7 +3,7 @@ using UnityEngine;
 namespace TowerDefence.Core
 {
     // Note: May be in future I'll change this interface and then change IDamageable to IHittable
-    public class Tree : MonoBehaviour, IDamageable
+    public class Tree : MonoBehaviour, IHittable
     {
         [SerializeField] private TreeConfig _treeConfig;
 

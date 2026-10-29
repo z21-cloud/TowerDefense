@@ -10,16 +10,28 @@ public class Campfire : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if(_currentTIme < 0) return;
+        if (_currentTIme < 0) return;
 
         _currentTIme -= Time.deltaTime;
 
-        Debug.Log(_currentTIme);
         // _timerText.text = _currentTIme.ToString();
+    }
+
+    public bool CanAccept(PickableType type)
+    {
+        // or is full maybe
+        if (type != PickableType.Log) return false;
+
+        Interact();
+
+        return true;
     }
 
     public void Interact()
     {
-                
+        _currentTIme += 20f;
+        _currentTIme = Mathf.Clamp(_currentTIme, 0f, _maxTime);
+
+        Debug.Log($"[Campfire] Added log");
     }
 }

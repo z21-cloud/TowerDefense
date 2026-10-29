@@ -1,9 +1,4 @@
-namespace TowerDefence.Core
+public interface IDamageable
 {
-    // Note: Maybe change this interface to IDamageable TryTakeDamage(int damage), 
-    // and create another interface for HittableObject IHittable
-    public interface IDamageable
-    {
-        public bool TryTakeHit();
-    }
+    public void TakeDamage(int value) {}
 }
