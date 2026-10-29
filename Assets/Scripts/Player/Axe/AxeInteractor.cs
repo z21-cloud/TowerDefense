@@ -4,15 +4,19 @@ using UnityEngine;
 
 namespace TowerDefence.Core
 {
-    public class AxeInteractor : MonoBehaviour
+    public class AxeInteractor : MonoBehaviour, IDamageDealer
     {
         [SerializeField] private AxeInteractorConfig _config;
 
         private float _nextHitTime;
         private Vector2 _debugCenter;
-        private readonly HashSet<IHittable> _hitThisSwing = new();
 
-        public void TryUse(float facing)
+        public void DealDamage(float direction)
+        {
+            TryUseAxe(direction);
+        }
+
+        private void TryUseAxe(float facing)
         {
             if (_config == null)
             {
@@ -24,24 +28,47 @@ namespace TowerDefence.Core
 
             _nextHitTime = Time.time + _config.AxeHitDelay;
 
-            AxeUsage(facing);
+            AxeHit(facing);
 
-            StartCoroutine(AxeUsageEffect());
+            StartCoroutine(AxeHitEffect());
         }
 
-        private void AxeUsage(float direction)
+        private void AxeHit(float direction)
         {
-            _hitThisSwing.Clear();
             Collider2D[] colliders = AxeZone(direction);
+
+            Collider2D nearestCol = null;
+
+            float nearestSqrDistance = float.MaxValue;
 
             foreach (var col in colliders)
             {
-                if (col.TryGetComponent<IHittable>(out var hittable)
-                    && _hitThisSwing.Add(hittable))
+                if ((!col.TryGetComponent<IHittable>(out _) && !col.TryGetComponent<IDamageable>(out _)) 
+                    || col.TryGetComponent<PlayerController>(out _)) continue;
+
+                float sqrDistance = ((Vector2)col.transform.position - (Vector2)transform.position).sqrMagnitude;
+
+                if (sqrDistance < nearestSqrDistance)
                 {
-                    Debug.Log($"[Axe] Hitting {col.name}");
-                    hittable.TryTakeHit();
+                    nearestCol = col;
+                    nearestSqrDistance = sqrDistance;
                 }
+            }
+
+            if (nearestCol == null) return;
+
+            if (nearestCol.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.TakeDamage(10);
+
+                Debug.Log($"[AxeInteractor] Damaging... {nearestCol.name}");
+            }
+
+            else if (nearestCol.TryGetComponent<IHittable>(out var hittable))
+            {
+                hittable.TryTakeHit();
+
+                Debug.Log($"[AxeInteractor] Hitting... {nearestCol.name}");
             }
         }
 
@@ -53,7 +80,7 @@ namespace TowerDefence.Core
             return colliders;
         }
 
-        private IEnumerator AxeUsageEffect()
+        private IEnumerator AxeHitEffect()
         {
             // effects, animation, sound
 

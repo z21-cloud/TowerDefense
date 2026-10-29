@@ -1,3 +1,4 @@
+using System;
 using TowerDefence.PlayerInput;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace TowerDefence.Core
         [SerializeField] private FlipComponent _flipComponent;
         [SerializeField] private Weapon _weapon;
 
+        private IDamageDealer _currentDamagerDealer;
         private InputManager _inputManager;
         private InventoryView _inventoryView;
         private PickableInteractor _pickableInteractor;
@@ -46,6 +48,8 @@ namespace TowerDefence.Core
                 enabled = false;
                 return;
             }
+
+            _currentDamagerDealer = _axeInteractor;
         }
 
         private void Update()
@@ -60,6 +64,14 @@ namespace TowerDefence.Core
             HandleInteractionInput();
             
             HandleInventoryInput();
+
+            HandleWeaponSwitchInput();
+        }
+
+        private void HandleWeaponSwitchInput()
+        {
+            if(_inputManager.SelectPrimaryWeapon()) _currentDamagerDealer = _axeInteractor;
+            if(_inputManager.SelectSecondaryWeapon()) _currentDamagerDealer = _weapon;
         }
 
         private void HandleInventoryInput()
@@ -80,7 +92,7 @@ namespace TowerDefence.Core
         {
             if (_inputManager.GetAttack())
             {
-                _axeInteractor.TryUse(_facing);
+                _currentDamagerDealer.DealDamage(_facing);
             }
         }
 
@@ -95,8 +107,6 @@ namespace TowerDefence.Core
                 _flipComponent.SetFacing(_facing);
             }
             _weaponRotation.RotateWeapon(mousePosition);
-
-            if(_inputManager.GetAttack()) _weapon.Shoot();
         }
 
         private void HandleMoveInput()

@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour, IBullet
     private bool _isEnemyOwner = false;
     // private GameObject _owner;
 
-    private readonly float _lifeTime = 20f;
+    private readonly float _lifeTime = 5f;
 
     public void Initialzie(BulletPool bulletPool)
     {
@@ -55,6 +55,9 @@ public class Bullet : MonoBehaviour, IBullet
         if(_timer >= _lifeTime)
         {
             _timer = 0f;
+
+            _rb.linearVelocity = Vector2.zero;
+
             _bulletPool.Return(this);
         }
     }
