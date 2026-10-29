@@ -1,11 +1,14 @@
-public class InventoryCell
+namespace TowerDefenсe.Core
 {
-    public CellType Type;
-    public int Count;
-
-    public InventoryCell(CellType type, int count)
+    public class InventoryCell
     {
-        Type = type;
-        Count = count;
+        public CellType Type;
+        public int Count;
+
+        public InventoryCell(CellType type, int count)
+        {
+            Type = type;
+            Count = count;
+        }
     }
 }

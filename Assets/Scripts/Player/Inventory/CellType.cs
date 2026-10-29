@@ -1,8 +1,11 @@
 
-public enum CellType
+namespace TowerDefenсe.Core
 {
-    Empty,
-    Axe,
-    Shotgun,
-    Log
+    public enum CellType
+    {
+        Empty,
+        Axe,
+        Shotgun,
+        Log
+    }
 }

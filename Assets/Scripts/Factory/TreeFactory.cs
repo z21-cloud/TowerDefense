@@ -11,11 +11,6 @@ namespace TowerDefence.Core
 
         private Factory<Tree> _factory;
 
-        // public void Initalize(LogPool logPool)
-        // {
-
-        // }
-
         public void Initialize()
         {
             _factory = new Factory<Tree>(_prefab, _parent);

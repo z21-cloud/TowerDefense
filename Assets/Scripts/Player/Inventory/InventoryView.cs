@@ -1,35 +1,39 @@
 using System.Collections.Generic;
+using TowerDefenсe.Core;
 using UnityEngine;
 
-public class InventoryView : MonoBehaviour
+namespace TowerDefenсe.Core
 {
-    [SerializeField] private List<InventorySlotView> _slots;
-
-    private Inventory _inventory;
-
-    public void Initialize(Inventory inventory)
+    public class InventoryView : MonoBehaviour
     {
-        _inventory = inventory;
-    }
+        [SerializeField] private List<InventorySlotView> _slots;
 
-    public void OpenInventory(bool value)
-    {
-        Refresh();
+        private Inventory _inventory;
 
-        gameObject.SetActive(value);
-    }
-
-
-    private void Refresh()
-    {
-        int slotsCount = _slots.Count;
-        for(int i = 0; i < slotsCount; i++)
+        public void Initialize(Inventory inventory)
         {
-            InventoryCell cell = _inventory.GetCell(i);
+            _inventory = inventory;
+        }
 
-            if(cell == null) continue;
+        public void OpenInventory(bool value)
+        {
+            Refresh();
 
-            _slots[i].SetText(cell.Type.ToString() + " " + cell.Count.ToString()); 
+            gameObject.SetActive(value);
+        }
+
+
+        private void Refresh()
+        {
+            int slotsCount = _slots.Count;
+            for(int i = 0; i < slotsCount; i++)
+            {
+                InventoryCell cell = _inventory.GetCell(i);
+
+                if(cell == null) continue;
+
+                _slots[i].SetText(cell.Type.ToString() + " " + cell.Count.ToString());
+            }
         }
     }
 }

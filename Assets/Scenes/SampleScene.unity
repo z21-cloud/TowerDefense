@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &142842038
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &229292409
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &422063453
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1001 &475333840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &507783180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b96f712cab3a42459dc4246b24383da, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventoryView
   _slots:
   - {fileID: 5223839794778651147}
   - {fileID: 789733178}
@@ -1782,7 +1782,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &799275843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &952855696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &1062562797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &1134647248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2655,11 +2655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa3aadaa3f096c439fbafef7d6c8a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Axe
-  _axeUsageTime: 0.2
-  _axeHitDelay: 0.5
-  _offset: {x: 1, y: 0}
-  _size: {x: 1, y: 1}
-  _debug: 1
+  _config: {fileID: 11400000, guid: 8b8b07ca58d74d8c99a521fae24a4b8c, type: 2}
 --- !u!114 &1178654501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2701,10 +2697,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83823dacb025c2f4d97fa13ddd1c54ad, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
-  _offset: {x: 1, y: 0}
-  _size: {x: 1, y: 1}
-  _debug: 1
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.PickableInteractor
+  _config: {fileID: 11400000, guid: e9f5ff62370d49bea88c879bdc226c88, type: 2}
 --- !u!114 &1178654504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2831,7 +2825,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &1474269189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3083,7 +3077,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &1502301079
 GameObject:
   m_ObjectHideFlags: 0
@@ -3427,7 +3421,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1 &1708903318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,7 +3905,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1001 &2058110368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4024,7 +4018,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1001 &2059019248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4137,7 +4131,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1001 &5223839794778651143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4253,7 +4247,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventorySlotView
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
