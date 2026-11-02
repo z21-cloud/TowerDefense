@@ -34,6 +34,11 @@ namespace TowerDefence.Bootstrap
 
         [Header("Inventory")]
         [SerializeField] private InventoryView _inventoryView;
+
+        [Header("Enemy")]
+        [SerializeField] private EnemyPool _enemyPool;
+        [SerializeField] private EnemyFactory _enemyFactory;
+
         private Inventory _inventory;
 
         private void Awake()
@@ -61,6 +66,10 @@ namespace TowerDefence.Bootstrap
 
             // 
             _playerHealthUI.Initialize(_health);
+
+            //
+            _enemyFactory.Initialize();
+            _enemyPool.Initialize();
         }
     }
 }

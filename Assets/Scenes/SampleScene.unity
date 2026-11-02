@@ -685,6 +685,8 @@ MonoBehaviour:
   _treeFactory: {fileID: 952855700}
   _logPool: {fileID: 952855699}
   _inventoryView: {fileID: 616870331}
+  _enemyPool: {fileID: 952855703}
+  _enemyFactory: {fileID: 952855704}
 --- !u!1001 &389459199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1786,6 +1788,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fc2ef0afd4f484587b78324eead696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefense.Core.InventorySlotView
+--- !u!1 &793096731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793096732}
+  m_Layer: 0
+  m_Name: EnemyPoolSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793096732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793096731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 952855698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &799275843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,10 +2111,12 @@ GameObject:
   m_Component:
   - component: {fileID: 952855698}
   - component: {fileID: 952855697}
-  - component: {fileID: 952855699}
   - component: {fileID: 952855700}
+  - component: {fileID: 952855699}
   - component: {fileID: 952855702}
   - component: {fileID: 952855701}
+  - component: {fileID: 952855704}
+  - component: {fileID: 952855703}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -2119,6 +2154,7 @@ Transform:
   - {fileID: 1062562798}
   - {fileID: 632749520}
   - {fileID: 2093489377}
+  - {fileID: 793096732}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &952855699
@@ -2181,6 +2217,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletPool
   _initialiCount: 100
   _bulletFactory: {fileID: 952855701}
+--- !u!114 &952855703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952855696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045787030c6719247ba423c7ef53e150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.EnemyPool
+  _initialCount: 100
+  _enemyFactory: {fileID: 952855704}
+--- !u!114 &952855704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952855696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac6399373328d844b5e450a4bf9b4c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.EnemyFactory
+  _enemyPool: {fileID: 952855703}
+  _prefab: {fileID: -4921524013223948440, guid: b8f93cc0e97312045842935f117b9713, type: 3}
+  _parent: {fileID: 793096732}
 --- !u!1 &988541704
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,7 +2881,7 @@ GameObject:
   - component: {fileID: 1443092792}
   - component: {fileID: 1443092793}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Test Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

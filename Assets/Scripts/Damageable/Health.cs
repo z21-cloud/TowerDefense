@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable, IHealable
@@ -6,13 +5,15 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _currentHealth;
 
-    public event Action<int, int> OnHealthChanged;
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
 
-    public void Awake()
+    public event System.Action<int, int> OnHealthChanged;
+    public event System.Action OnDeath;
+
+    private void Awake()
     {
         _currentHealth = _maxHealth;
-
-        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -40,9 +41,16 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
     }
 
+    public void ResetState()
+    {
+        _currentHealth = _maxHealth;
+
+        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+    }
+
     private void Die()
     {
         Debug.Log($"[Health] Dead: {gameObject.name}");
-        gameObject.SetActive(false);
+        OnDeath?.Invoke();
     }
 }

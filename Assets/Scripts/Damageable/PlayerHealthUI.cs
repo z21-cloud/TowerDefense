@@ -12,6 +12,8 @@ public class PlayerHealthUI : MonoBehaviour
         _health = health;
 
         _health.OnHealthChanged += HealthChanged;
+        
+        HealthChanged(_health.CurrentHealth, _health.MaxHealth);
     }
 
     public void HealthChanged(int current, int max)
