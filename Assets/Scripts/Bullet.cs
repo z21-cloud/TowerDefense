@@ -17,16 +17,16 @@ public class Bullet : MonoBehaviour, IBullet
 
     public void Initialzie(BulletPool bulletPool)
     {
-        if(!TryGetComponent<Rigidbody2D>(out var rigidbody2D))
+        if (!TryGetComponent<Rigidbody2D>(out var rigidbody2D))
         {
             Debug.LogError($"[Bullet] RigidBody2D is null! Error expected");
-            return; 
+            return;
         }
 
-        if(bulletPool == null)
+        if (bulletPool == null)
         {
             Debug.LogError($"[Bullet] Bullet pool is not assigned!");
-            return; 
+            return;
         }
 
         _rb = rigidbody2D;
@@ -35,10 +35,10 @@ public class Bullet : MonoBehaviour, IBullet
     }
 
     public void SetConfiguration(
-        Vector2 direction, 
-        float speed, 
+        Vector2 direction,
+        float speed,
         int damage)
-        // GameObject owner)
+    // GameObject owner)
     {
         _direction = direction;
         _speed = speed;
@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour, IBullet
 
         _timer += Time.fixedDeltaTime;
 
-        if(_timer >= _lifeTime)
+        if (_timer >= _lifeTime)
         {
             _timer = 0f;
 
@@ -62,13 +62,15 @@ public class Bullet : MonoBehaviour, IBullet
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.TryGetComponent<PlayerController>(out _) && !_isEnemyOwner) return;
+        if (other.TryGetComponent<PlayerController>(out _) && !_isEnemyOwner) return;
 
-        if(collision.TryGetComponent<IDamageable>(out var damageable))
+        if (other.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(_damage);
+            _bulletPool.Return(this);
+            Debug.Log($"[Bullet] Damaging... {other.name}");
         }
     }
 }

@@ -43,5 +43,6 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     private void Die()
     {
         Debug.Log($"[Health] Dead: {gameObject.name}");
+        gameObject.SetActive(false);
     }
 }

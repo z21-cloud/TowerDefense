@@ -11,6 +11,8 @@ namespace TowerDefence.Core
         [SerializeField] private AxeInteractor _axeInteractor;
         [SerializeField] private FlipComponent _flipComponent;
         [SerializeField] private Weapon _weapon;
+        [SerializeField] private GameObject _weaponGameObject;
+        [SerializeField] private GameObject _axeGameObject;
 
         private IDamageDealer _currentDamagerDealer;
         private InputManager _inputManager;
@@ -50,6 +52,8 @@ namespace TowerDefence.Core
             }
 
             _currentDamagerDealer = _axeInteractor;
+            _weaponGameObject.SetActive(false);
+            _axeGameObject.SetActive(true);
         }
 
         private void Update()
@@ -70,8 +74,18 @@ namespace TowerDefence.Core
 
         private void HandleWeaponSwitchInput()
         {
-            if(_inputManager.SelectPrimaryWeapon()) _currentDamagerDealer = _axeInteractor;
-            if(_inputManager.SelectSecondaryWeapon()) _currentDamagerDealer = _weapon;
+            if(_inputManager.SelectPrimaryWeapon()) 
+            {
+                _currentDamagerDealer = _axeInteractor;
+                _weaponGameObject.SetActive(false);
+                _axeGameObject.SetActive(true);
+            }
+            if(_inputManager.SelectSecondaryWeapon()) 
+            {
+                _currentDamagerDealer = _weapon;
+                _weaponGameObject.SetActive(true);
+                _axeGameObject.SetActive(false);
+            }
         }
 
         private void HandleInventoryInput()
