@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,23 @@ namespace TowerDefence.Core
 
         private float _nextHitTime;
         private Vector2 _debugCenter;
+
+        // События смены состояния: подписчикам не нужно знать о GameObject топора
+        public event Action Activated;
+        public event Action Deactivated;
+
+        // Компонент сам управляет своим объектом (он вынесен в отдельный дочерний объект)
+        public void Activate()
+        {
+            gameObject.SetActive(true);
+            Activated?.Invoke();
+        }
+
+        public void Deactivate()
+        {
+            gameObject.SetActive(false);
+            Deactivated?.Invoke();
+        }
 
         public void DealDamage(float direction)
         {

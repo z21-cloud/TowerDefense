@@ -1,4 +1,3 @@
-using System;
 using TowerDefence.PlayerInput;
 using UnityEngine;
 
@@ -6,13 +5,11 @@ namespace TowerDefence.Core
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private WeaponRotation _weaponRotation;
-        [SerializeField] private MovementComponent _movementComponent;
-        [SerializeField] private AxeInteractor _axeInteractor;
-        [SerializeField] private FlipComponent _flipComponent;
-        [SerializeField] private Weapon _weapon;
-        [SerializeField] private GameObject _weaponGameObject;
-        [SerializeField] private GameObject _axeGameObject;
+        private WeaponRotation _weaponRotation;
+        private MovementComponent _movementComponent;
+        private AxeInteractor _axeInteractor;
+        private FlipComponent _flipComponent;
+        private Weapon _weapon;
 
         private IDamageDealer _currentDamagerDealer;
         private InputManager _inputManager;
@@ -23,37 +20,40 @@ namespace TowerDefence.Core
 
         public void Initialize(InputManager inputManager,
                                 PickableInteractor pickableInteractor,
-                                InventoryView inventoryView)
+                                InventoryView inventoryView,
+                                WeaponRotation weaponRotation,
+                                MovementComponent movementComponent,
+                                AxeInteractor axeInteractor,
+                                FlipComponent flipComponent,
+                                Weapon weapon)
         {
-            if (inputManager == null)
+            if (inputManager == null
+            || pickableInteractor == null
+            || inventoryView == null
+            || weaponRotation == null
+            || movementComponent == null
+            || axeInteractor == null
+            || flipComponent == null
+            || weapon == null)
             {
-                Debug.LogError("[PlayerController] InputManager is null.", this);
-                return;
-            }
-
-            _inputManager = inputManager;
-            _inventoryView = inventoryView;
-            _pickableInteractor = pickableInteractor;
-        }
-
-        private void Awake()
-        {
-            if (_inputManager == null
-            || _weaponRotation == null
-            || _movementComponent == null
-            || _pickableInteractor == null
-            || _axeInteractor == null
-            || _flipComponent == null
-            || _inventoryView == null)
-            {
-                Debug.LogError($"[PlayerController] Component is null!", this);
+                Debug.LogError("[PlayerController] Component is null!", this);
                 enabled = false;
                 return;
             }
 
+            _inputManager = inputManager;
+            _pickableInteractor = pickableInteractor;
+            _inventoryView = inventoryView;
+            _weaponRotation = weaponRotation;
+            _movementComponent = movementComponent;
+            _axeInteractor = axeInteractor;
+            _flipComponent = flipComponent;
+            _weapon = weapon;
+
+            // Стартовое состояние: в руках топор, огнестрельное оружие скрыто
             _currentDamagerDealer = _axeInteractor;
-            _weaponGameObject.SetActive(false);
-            _axeGameObject.SetActive(true);
+            _axeInteractor.Activate();
+            _weapon.Deactivate();
         }
 
         private void Update()
@@ -64,9 +64,9 @@ namespace TowerDefence.Core
             HandleRotationInput();
 
             HandleAttackInput();
-            
+
             HandleInteractionInput();
-            
+
             HandleInventoryInput();
 
             HandleWeaponSwitchInput();
@@ -74,17 +74,17 @@ namespace TowerDefence.Core
 
         private void HandleWeaponSwitchInput()
         {
-            if(_inputManager.SelectPrimaryWeapon()) 
+            if (_inputManager.SelectPrimaryWeapon())
             {
                 _currentDamagerDealer = _axeInteractor;
-                _weaponGameObject.SetActive(false);
-                _axeGameObject.SetActive(true);
+                _weapon.Deactivate();
+                _axeInteractor.Activate();
             }
-            if(_inputManager.SelectSecondaryWeapon()) 
+            if (_inputManager.SelectSecondaryWeapon())
             {
                 _currentDamagerDealer = _weapon;
-                _weaponGameObject.SetActive(true);
-                _axeGameObject.SetActive(false);
+                _axeInteractor.Deactivate();
+                _weapon.Activate();
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,23 @@ public class Weapon : MonoBehaviour, IDamageDealer
     [SerializeField] private float _reloadingTime = 1f;
 
     private bool _isReloading;
+
+    // События смены состояния: подписчикам не нужно знать о GameObject оружия
+    public event Action Activated;
+    public event Action Deactivated;
+
+    // Компонент сам управляет своим объектом (он вынесен в отдельный дочерний объект)
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+        Activated?.Invoke();
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+        Deactivated?.Invoke();
+    }
 
     private void OnEnable()
     {

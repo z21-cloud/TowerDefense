@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 229292410}
   - component: {fileID: 229292412}
   - component: {fileID: 229292413}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CampFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,9 +673,13 @@ MonoBehaviour:
   _inputHandler: {fileID: 608060654}
   _playerController: {fileID: 1178654501}
   _pickableInteractor: {fileID: 1178654503}
-  _health: {fileID: 1178654504}
+  _movementComponent: {fileID: 1178654499}
+  _flipComponent: {fileID: 1178654502}
+  _playerHealth: {fileID: 1178654504}
   _playerHealthUI: {fileID: 687180937}
   _weaponRotation: {fileID: 1134647250}
+  _weapon: {fileID: 1134647251}
+  _axeInteractor: {fileID: 904656066}
   _bulletPool: {fileID: 952855702}
   _bulletFactory: {fileID: 952855701}
   _cameraFollow: {fileID: 519420033}
@@ -825,7 +829,7 @@ Transform:
   m_GameObject: {fileID: 422063453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 3, z: 0}
+  m_LocalPosition: {x: 2.81, y: 3.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2243,7 +2247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac6399373328d844b5e450a4bf9b4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.EnemyFactory
-  _enemyPool: {fileID: 952855703}
   _prefab: {fileID: -4921524013223948440, guid: b8f93cc0e97312045842935f117b9713, type: 3}
   _parent: {fileID: 793096732}
 --- !u!1 &988541704
@@ -2820,13 +2823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79dc767591f6aec44afc94cf6ddfa71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _weaponRotation: {fileID: 1134647250}
-  _movementComponent: {fileID: 1178654499}
-  _axeInteractor: {fileID: 904656066}
-  _flipComponent: {fileID: 1178654502}
-  _weapon: {fileID: 1134647251}
-  _weaponGameObject: {fileID: 1134647248}
-  _axeGameObject: {fileID: 904656064}
 --- !u!114 &1178654502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2868,6 +2864,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   _maxHealth: 100
   _currentHealth: 0
+--- !u!1 &1202590695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202590696}
+  - component: {fileID: 1202590697}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1202590696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202590695}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202590697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202590695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2411e7f11526abf48a0379ae8ed01455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grid
+  spriteRenderer: {fileID: 1987643812}
+  cellSize: {x: 1, y: 1}
+  unwalkableLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1443092789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2880,7 +2925,7 @@ GameObject:
   - component: {fileID: 1443092790}
   - component: {fileID: 1443092792}
   - component: {fileID: 1443092793}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Test Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4629,6 +4674,7 @@ SceneRoots:
   - {fileID: 1987643813}
   - {fileID: 229292411}
   - {fileID: 1178654496}
+  - {fileID: 1443092791}
   - {fileID: 206904767}
   - {fileID: 799275844}
   - {fileID: 824416543}
@@ -4636,10 +4682,10 @@ SceneRoots:
   - {fileID: 249950865}
   - {fileID: 952855698}
   - {fileID: 701888247}
+  - {fileID: 1202590696}
   - {fileID: 142842039}
   - {fileID: 2002205323}
   - {fileID: 833815552}
   - {fileID: 1079362613}
   - {fileID: 1913948765}
   - {fileID: 1946602471}
-  - {fileID: 1443092791}

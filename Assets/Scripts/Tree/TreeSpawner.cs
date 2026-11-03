@@ -7,7 +7,7 @@ public class TreeSpawner : MonoBehaviour
     [SerializeField] private TreePool _treePool;
     [SerializeField] private List<Transform> _transforms;
 
-    private void Start()
+    private void Awake()
     {
         foreach(var treeTransform in _transforms)
         {
@@ -15,6 +15,8 @@ public class TreeSpawner : MonoBehaviour
             tree.transform.position = treeTransform.position;
             tree.gameObject.SetActive(true);
         }
+
+        // Physics2D.SyncTransforms(); // Ensure that the physics engine is aware of the new positions
     }
 
 }
