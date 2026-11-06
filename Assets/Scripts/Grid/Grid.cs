@@ -33,11 +33,14 @@ public class Grid : MonoBehaviour
 
                 bool isWalkable = CheckWalkable(cellPosition, gridPosition);
 
-                GridCell cell = new GridCell(cellPosition, gridPosition, isWalkable);
+                float tempCost = isWalkable ? 1f : float.MaxValue; // Assign a high cost for unwalkable cells
+
+                GridCell cell = new GridCell(cellPosition, gridPosition, isWalkable, tempCost);
                 gridCells.Add(gridPosition, cell);
             }
         }
     }
+
 
     private bool CheckWalkable(Vector2 position, Vector2Int gridPosition)
     {
@@ -46,6 +49,16 @@ public class Grid : MonoBehaviour
         Debug.Log($"Checking walkability for cell at {gridPosition}: Found {colliders.Length} colliders.");
 
         return colliders.Length == 0; // If no collider is found, the cell is walkable
+    }
+
+    public bool TryGetCell(Vector2Int gridPosition, out GridCell cell)
+    {
+        return gridCells.TryGetValue(gridPosition, out cell);
+    }
+
+    public IEnumerable<GridCell> GetAllCells()
+    {
+        return gridCells.Values;
     }
 
     private void OnDrawGizmos()
