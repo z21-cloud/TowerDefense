@@ -6,6 +6,7 @@ namespace TowerDefence.Core
     {
         [SerializeField] private Enemy _prefab;
         [SerializeField] private Transform _parent;
+        [SerializeField] private Grid grid;
 
         private Factory<Enemy> _factory;
 
@@ -19,6 +20,7 @@ namespace TowerDefence.Core
         public Enemy Create()
         {
             var obj = _factory.Create();
+            obj.Initialize(grid);
             OnCreated?.Invoke(obj);
             return obj;
         }

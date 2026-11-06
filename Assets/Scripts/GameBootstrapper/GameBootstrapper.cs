@@ -42,6 +42,7 @@ namespace TowerDefence.Bootstrap
         [Header("Enemy")]
         [SerializeField] private EnemyPool _enemyPool;
         [SerializeField] private EnemyFactory _enemyFactory;
+        [SerializeField] private EnemySpawner _enemySpawner;
 
         private Inventory _inventory;
 
@@ -59,6 +60,9 @@ namespace TowerDefence.Bootstrap
             _treePool.Initialize();
             _bulletPool.Initialize();
             _enemyPool.Initialize();
+
+            // 2.1 Спавнер врагов — после пула: берёт из него объекты и запускает поиск пути.
+            _enemySpawner.Initialize();
 
             // 3. Ввод — до игрока: контроллер пользуется InputManager уже при инициализации.
             _inputManager.Initialize(_inputHandler);

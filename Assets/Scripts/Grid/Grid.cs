@@ -41,12 +41,48 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public void FindPath(Vector2 startWorldPosition, Vector2 endWorldPosition, out List<Vector2> path)
+    {
+        Vector2Int startGridPosition = WorldToGridPosition(startWorldPosition);
+        Vector2Int endGridPosition = WorldToGridPosition(endWorldPosition);
+
+        if (!gridCells.TryGetValue(startGridPosition, out GridCell startCell) || !gridCells.TryGetValue(endGridPosition, out GridCell endCell))
+        {
+            Debug.LogError($"[Grid] Start {startWorldPosition} or end {endWorldPosition} is outside the grid.");
+            path = null;
+            return;
+        }
+
+        AStar aStar = new AStar(this);
+        List<GridCell> cellPath = aStar.FindPath(startCell, endCell);
+
+        if (cellPath != null)
+        {
+            path = new List<Vector2>();
+            foreach (var cell in cellPath)
+            {
+                path.Add(cell.position);
+            }
+        }
+        else
+        {
+            path = null;
+            Debug.LogError("No path found.");
+        }
+    }
+
+    private Vector2Int WorldToGridPosition(Vector2 worldPosition)
+    {
+        int x = Mathf.Clamp(Mathf.FloorToInt((worldPosition.x - originMin.x) / cellSize.x), 0, gridSize.x - 1);
+        int y = Mathf.Clamp(Mathf.FloorToInt((worldPosition.y - originMin.y) / cellSize.y), 0, gridSize.y - 1);
+        return new Vector2Int(x, y);
+    }
+
 
     private bool CheckWalkable(Vector2 position, Vector2Int gridPosition)
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, cellSize, 0f, unwalkableLayer);
-
-        Debug.Log($"Checking walkability for cell at {gridPosition}: Found {colliders.Length} colliders.");
+        // Бокс чуть меньше клетки, чтобы коллайдер на границе не блокировал соседнюю клетку.
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(position, (Vector2)cellSize * 0.9f, 0f, unwalkableLayer);
 
         return colliders.Length == 0; // If no collider is found, the cell is walkable
     }
