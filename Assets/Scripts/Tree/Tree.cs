@@ -57,12 +57,15 @@ namespace TowerDefence.Core
             Debug.Log("$[Tree] Falling...");
 
             TreeChoppedData treeChoppedData = new TreeChoppedData(_treeConfig, transform.position);
+
+            // Сначала возвращаем дерево в пул: объект деактивируется, и подписчики
+            // события (обновление сетки, спавн лута) уже не увидят его коллайдер.
+            _treePool.Return(this);
+
             _channel.RaiseEvent(treeChoppedData);
 
             // effects via channel
             // sound via channel
-
-            _treePool.Return(this);
         }
     }
 }

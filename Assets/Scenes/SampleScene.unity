@@ -783,6 +783,7 @@ MonoBehaviour:
   _enemyPool: {fileID: 952855703}
   _enemyFactory: {fileID: 952855704}
   _enemySpawner: {fileID: 300803799}
+  _gridUpdater: {fileID: 1202590698}
 --- !u!1 &300803797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,6 +2399,7 @@ MonoBehaviour:
   _prefab: {fileID: -4921524013223948440, guid: b8f93cc0e97312045842935f117b9713, type: 3}
   _parent: {fileID: 793096732}
   grid: {fileID: 1202590697}
+  _channel: {fileID: 11400000, guid: 9474fa34d52c2354194d525aca7e2ff1, type: 2}
 --- !u!1 &980603886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3146,6 +3148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202590696}
   - component: {fileID: 1202590697}
+  - component: {fileID: 1202590698}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -3185,6 +3188,19 @@ MonoBehaviour:
   unwalkableLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &1202590698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202590695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69dd77619615499d8b832b0198729785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Core.GridUpdater
+  _grid: {fileID: 1202590697}
 --- !u!1 &1355458927
 GameObject:
   m_ObjectHideFlags: 0

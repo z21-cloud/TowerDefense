@@ -36,6 +36,9 @@ namespace TowerDefence.Bootstrap
         [SerializeField] private TreeFactory _treeFactory;
         [SerializeField] private LogPool _logPool;
 
+        [Header("Grid")]
+        [SerializeField] private GridUpdater _gridUpdater;
+
         [Header("Inventory")]
         [SerializeField] private InventoryView _inventoryView;
 
@@ -69,6 +72,10 @@ namespace TowerDefence.Bootstrap
 
             // 4. Спавнер лута деревьев — независимая подсистема, нужен только канал событий.
             _treeLootSpawner.Initialize(_channel);
+
+            // 4.1 Обновление сетки — подписывается на тот же канал: после рубки
+            //     дерева его клетка пересчитывается и становится проходимой.
+            _gridUpdater.Initialize(_channel);
 
             // 5. Инвентарь — до интеракторов и контроллера игрока: они получают его ссылкой.
             _inventory = new Inventory();

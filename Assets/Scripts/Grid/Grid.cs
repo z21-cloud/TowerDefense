@@ -87,6 +87,22 @@ public class Grid : MonoBehaviour
         return colliders.Length == 0; // If no collider is found, the cell is walkable
     }
 
+    // Пересчитывает проходимость клетки по мировой позиции. Вызывается,
+    // когда препятствие исчезло или появилось (например, после рубки дерева).
+    public void UpdateCellAt(Vector2 worldPosition)
+    {
+        Vector2Int gridPosition = WorldToGridPosition(worldPosition);
+
+        if (!gridCells.TryGetValue(gridPosition, out GridCell cell))
+        {
+            Debug.LogError($"[Grid] Cell at {worldPosition} is outside the grid.");
+            return;
+        }
+
+        cell.isWalkable = CheckWalkable(cell.position, gridPosition);
+        cell.cost = cell.isWalkable ? 1f : float.MaxValue;
+    }
+
     public bool TryGetCell(Vector2Int gridPosition, out GridCell cell)
     {
         return gridCells.TryGetValue(gridPosition, out cell);

@@ -7,6 +7,7 @@ namespace TowerDefence.Core
         [SerializeField] private Enemy _prefab;
         [SerializeField] private Transform _parent;
         [SerializeField] private Grid grid;
+        [SerializeField] private TreeChoppedEventChannelSO _channel;
 
         private Factory<Enemy> _factory;
 
@@ -20,7 +21,7 @@ namespace TowerDefence.Core
         public Enemy Create()
         {
             var obj = _factory.Create();
-            obj.Initialize(grid);
+            obj.Initialize(grid, _channel);
             OnCreated?.Invoke(obj);
             return obj;
         }
