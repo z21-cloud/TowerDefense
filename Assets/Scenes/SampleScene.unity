@@ -779,11 +779,11 @@ MonoBehaviour:
   _treePool: {fileID: 952855697}
   _treeFactory: {fileID: 952855700}
   _logPool: {fileID: 952855699}
+  _gridUpdater: {fileID: 1202590698}
   _inventoryView: {fileID: 616870331}
   _enemyPool: {fileID: 952855703}
   _enemyFactory: {fileID: 952855704}
   _enemySpawner: {fileID: 300803799}
-  _gridUpdater: {fileID: 1202590698}
 --- !u!1 &300803797
 GameObject:
   m_ObjectHideFlags: 0
